@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda en Línea</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <main>
+        <% if (categories && categories.length > 0) { %>
+            <% categories.forEach(category => { %>
+                <section>
+                    <h2><%= category.name %></h2>
+                    <div class="products">
+                        <% if (category.Products && category.Products.length > 0) { %>
+                            <% category.Products.forEach(product => { %>
+                                <div class="product-card">
+                                    <h3><%= product.name %></h3>
+                                    <p><%= product.description %></p>
+                                    <p>$<%= product.price %></p>
+                                    <button>Add to Cart</button>
+                                </div>
+                            <% }) %>
+                        <% } else { %>
+                            <p>No products found in this category.</p>
+                        <% } %>
+                    </div>
+                </section>
+            <% }) %>
+        <% } else { %>
+            <p>No categories found.</p>
+        <% } %>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!-- views/shopping-cart.ejs -->
+
+<%- include('./partials/header') %>
+
+<div class="container mt-4">
+    <h2>Carrito de Compras</h2>
+    <hr>
+
+    <!-- Lista de productos en el carrito -->
+    <% if (products && products.length > 0) { %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %>
+                    <tr>
+                        <td><%= product.name %></td>
+                        <td><%= product.quantity %></td>
+                        <td>$ <%= product.price %></td>
+                        <td>$ <%= product.quantity * product.price %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <!-- Formulario para datos del cliente -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Datos del Cliente
+            </div>
+            <div class="card-body">
+                <form action="/checkout" method="POST">
+                    <div class="form-group">
+                        <label for="document">Documento:</label>
+                        <input type="text" class="form-control" id="document" name="document" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Apellidos:</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Dirección:</label>
+                        <input type="text" class="form-control" id="address" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono:</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Realizar Pedido</button>
+                </form>
+            </div>
+        </div>
+    <% } else { %>
+        <p>No hay productos en el carrito.</p>
+    <% } %>
+</div>
+
+<%- include('./partials/footer') %>

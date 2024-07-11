@@ -1,0 +1,99 @@
+<!-- views/admin/products.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Productos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('../partials/header') %>
+    <div class="container">
+        <h2>Admin - Productos</h2>
+        <hr>
+
+        <!-- Formulario para agregar nuevo producto -->
+        <form action="/admin/products" method="POST">
+            <div class="form-group">
+                <label for="name">Nombre del producto:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Precio:</label>
+                <input type="number" class="form-control" id="price" name="price" step="0.01" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Categoría:</label>
+                <select class="form-control" id="category" name="category" required>
+                    <% categories.forEach(category => { %>
+                    <option value="<%= category.id %>"><%= category.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Producto</button>
+        </form>
+
+        <hr>
+
+        <!-- Lista de productos existentes -->
+        <h3>Listado de Productos</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %>
+                <tr>
+                    <td><%= product.id %></td>
+                    <td><%= product.name %></td>
+                    <td>$ <%= product.price.toFixed(2) %></td>
+                    <td><%= product.Category.name %></td>
+                    <td>
+                        <a href="/admin/products/<%= product.id %>/edit" class="btn btn-sm btn-primary">Editar</a>
+                        <form action="/admin/products/<%= product.id %>?_method=DELETE" method="POST"
+                            style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+                <!-- views/admin/products.ejs -->
+
+
+<%- include('../partials/footer') %>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS (jQuery y Popper.js necesarios) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
+        integrity="sha384-mX6Uso2ZtML6Z7vOy3NHmRj3bYHZG6XgcNzJjgT0MC2i9L+7rX3bW1V/dl7QV6Rn"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

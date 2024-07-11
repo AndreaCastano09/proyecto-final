@@ -1,0 +1,72 @@
+<!-- views/admin/orders.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Pedidos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+    <div class="container">
+        <h2>Admin - Pedidos</h2>
+        <hr>
+
+        <!-- Lista de pedidos -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Productos</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach(order => { %>
+                <tr>
+                    <td><%= order.id %></td>
+                    <td><%= order.customerName %></td>
+                    <td>
+                        <ul>
+                            <% order.products.forEach(product => { %>
+                            <li><%= product.name %> - Cantidad: <%= product.quantity %></li>
+                            <% }) %>
+                        </ul>
+                    </td>
+                    <td>$ <%= order.total.toFixed(2) %></td>
+                    <td><%= order.status %></td>
+                </tr>
+                <% }) %>
+                <!-- views/admin/orders.ejs -->
+
+<%- include('../partials/footer') %>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS (jQuery y Popper.js necesarios) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
+        integrity="sha384-mX6Uso2ZtML6Z7vOy3NHmRj3bYHZG6XgcNzJjgT0MC2i9L+7rX3bW1V/dl7QV6Rn"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

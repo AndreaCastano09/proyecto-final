@@ -1,0 +1,101 @@
+<!-- views/admin/users.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Usuarios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- views/admin/users.ejs -->
+
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <h2>Admin - Usuarios</h2>
+    <hr>
+
+    <!-- Mensajes de éxito o error -->
+    <% if (successMessage) { %>
+        <div class="alert alert-success" role="alert">
+            <%= successMessage %>
+        </div>
+    <% } %>
+    <% if (errorMessage) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= errorMessage %>
+        </div>
+    <% } %>
+
+    <!-- Formulario para agregar nuevo usuario -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Agregar Nuevo Usuario
+        </div>
+        <div class="card-body">
+            <form action="/admin/users" method="POST">
+                <div class="form-group">
+                    <label for="name">Nombre de Usuario:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de usuarios -->
+    <div class="card">
+        <div class="card-header">
+            Lista de Usuarios
+        </div>
+        <div class="card-body">
+            <% if (users && users.length > 0) { %>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre de Usuario</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user => { %>
+                            <tr>
+                                <td><%= user.id %></td>
+                                <td><%= user.name %></td>
+                                <td><%= user.email %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p>No hay usuarios registrados.</p>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
+
+</body>
+
+</html>
+

@@ -1,0 +1,81 @@
+<!-- views/admin/categories.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Categorías</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+    <div class="container">
+        <h2>Admin - Categorías</h2>
+        <hr>
+
+        <!-- Formulario para agregar nueva categoría -->
+        <form action="/admin/categories" method="POST">
+            <div class="form-group">
+                <label for="name">Nombre de la categoría:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Categoría</button>
+        </form>
+
+        <hr>
+
+        <!-- Lista de categorías existentes -->
+        <h3>Listado de Categorías</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% categories.forEach(category => { %>
+                <tr>
+                    <td><%= category.id %></td>
+                    <td><%= category.name %></td>
+                    <td>
+                        <a href="/admin/categories/<%= category.id %>/edit" class="btn btn-sm btn-primary">Editar</a>
+                        <form action="/admin/categories/<%= category.id %>?_method=DELETE" method="POST"
+                            style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="return confirm('¿Estás seguro de eliminar esta categoría?')">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+                <!-- views/admin/categories.ejs -->
+
+<%- include('../partials/footer') %>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS (jQuery y Popper.js necesarios) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
+        integrity="sha384-mX6Uso2ZtML6Z7vOy3NHmRj3bYHZG6XgcNzJjgT0MC2i9L+7rX3bW1V/dl7QV6Rn"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
